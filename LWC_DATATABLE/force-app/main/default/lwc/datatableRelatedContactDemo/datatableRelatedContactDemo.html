@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Contact list of">
+        <lightning-datatable
+            key-field="Id"
+            data={contactListData}
+            columns={columns}
+            
+            onsave={saveHandler}
+            draft-values={draftValue}
+        ></lightning-datatable>
+    </lightning-card>
+</template>
