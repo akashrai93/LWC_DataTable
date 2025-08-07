@@ -57,6 +57,7 @@ export default class DatatableRelatedContactDemo extends LightningElement {
                 )
             })
         });
+
     }
 
 }
