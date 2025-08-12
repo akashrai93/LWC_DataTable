@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title="Opportunity Contact Role">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Contact">contact</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Role">Role</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="primary">Primary ?</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={conroledata} for:item="conId">
+                    <tr key={conId.Id} class="slds-hint-parent">
+                        <td>{conId.Contact.Name} </td>
+                        <td>{conId.Role} </td>
+                        <td>
+                            <lightning-input type="checkbox" name="primary" label="primary"
+                                checked={conId.IsPrimary}></lightning-input>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </lightning-card>
+</template>

@@ -12,6 +12,13 @@ const columns = [
             target: "_blank"
         }
     },
+    {
+        label: 'Title', fieldName: 'Title', cellAttributes: {
+            class: {         //"slds_theme_shade slds-theme_alert-texture"
+                fieldName: "slds-text-color_success"
+            }
+        }
+    },
     { label: 'Phone', fieldName: 'Phone', type: 'phone' },
     { label: 'Email', fieldName: 'Email', type: 'email' }
 ]

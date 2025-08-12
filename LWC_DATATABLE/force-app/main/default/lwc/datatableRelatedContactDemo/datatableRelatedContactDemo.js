@@ -2,6 +2,8 @@ import { api, LightningElement, wire } from 'lwc';
 import fetchRelatedContactAccount from '@salesforce/apex/ContactController.fetchRelatedContactAccount';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { updateRecord } from 'lightning/uiRecordApi';
+import { refreshApex } from "@salesforce/apex";
+
 const columns = [
     { label: "First name", fieldName: "FirstName", editable: true },
     { label: "Last Name", fieldName: "LastName", editable: true },
@@ -14,18 +16,19 @@ export default class DatatableRelatedContactDemo extends LightningElement {
     columns = columns;
     contactListData = [];
     draftValue;
-
+    contactrefreshprop;
     @wire(fetchRelatedContactAccount,
         {
             accountId: "$recordId"
         }
     )
-    contactData({ data, error }) {
-        if (data) {
-            this.contactListData = data;
+    contactData(result) {
+        this.contactrefreshprop = result
+        if (result.data) {
+            this.contactListData = result.data;
             //console.log('data : ', data);
-        } else if (error) {
-            console.error('error : ', error);
+        } else if (result.error) {
+            console.error('error : ', result.error);
         }
     }
 
@@ -38,26 +41,20 @@ export default class DatatableRelatedContactDemo extends LightningElement {
             }
         });
         this.draftValue = [];
-        updateRecordArray.map(curritem => {
-            updateRecord(curritem).then(() => {
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: "records updated",
-                        message: "updated successfully",
-                        variant: "success"
-                    })
-                )
-            }).catch(error => {
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: "records error",
-                        message: error.body.message,
-                        variant: "error"
-                    })
-                )
-            })
+        let updateRecordArrayPromise = updateRecordArray.map(curritem => {
+            updateRecord(curritem);
         });
 
-    }
+        await Promise.all(updateRecordArrayPromise);
 
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: "record updated",
+                message: "record updated successfully",
+                variant: "success"
+            })
+        );
+
+        await refreshApex(this.contactrefreshprop);
+    }
 }

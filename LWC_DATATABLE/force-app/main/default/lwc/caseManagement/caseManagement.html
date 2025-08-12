@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Case Management Utility">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_2-of-3">
+                <lightning-record-picker label="Accounts" placeholder="Search accounts" object-api-name="Account"
+                    onchange={changeHandler}></lightning-record-picker>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <lightning-button label="close cases" disabled={isDisabled} variant="brand"
+                    onclick={clickHandler}></lightning-button>
+            </div>
+        </div>
+
+        <!--Summary table-->
+        <div class="slds-grid slds-gutters slds-var-p-around_small">
+            <div class="slds-col">
+                <div class="slds-text-align_left">
+                    Total open cases : <strong>{totalOpenCases}</strong>
+                </div>
+            </div>
+            <div class="slds-col">
+                <div class="slds-text-align_right">
+                    Selected cases : <strong>{totalSelectedCases}</strong>
+                </div>
+            </div>
+        </div>
+        <div>
+            <!--Datatable section-->
+        <template lwc:if={isDataAvailable} >
+            <div class="slds-grid slds-gutter" >
+                <lightning-datatable
+                    key-field="Id"
+                    data={casesProccessed}
+                    columns={columns}
+                    onrowselection={handlerRowSelection}
+                ></lightning-datatable>
+            </div>
+        </template>
+        <template lwc:else>
+            <strong>No Data Available</strong>
+        </template>
+        </div>
+    </lightning-card>
+</template>
