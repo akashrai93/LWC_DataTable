@@ -1,6 +1,8 @@
 import { LightningElement, wire } from 'lwc';
 import getallcases from '@salesforce/apex/CaseController.getOpenCase';
 import updatecase from '@salesforce/apex/CaseController.updateCaseRecord';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { refreshApex } from 'lightning/apex';
 
 const columnss = [
     { label: "Case Number", fieldName: "CaseNumber" },
@@ -14,9 +16,11 @@ export default class CaseManagement extends LightningElement {
     accountId = null;
     columns = columnss;
     selectedCaseRecord = [];
+    noStaleData;
     @wire(getallcases, {
         accId: "$accountId"
     }) caseData({ data, error }) {
+        this.noStaleData = data;
         if (data) {
             //console.log('main data : ', data);
             this.casesProccessed = data.map(item => ({
@@ -36,14 +40,33 @@ export default class CaseManagement extends LightningElement {
     //when button clicks
     async clickHandler() {
         let caseIds = this.selectedCaseRecord.map(item => item.Id);
-        console.log('caseIds : ', caseIds);
-        await updatecase(caseIds);
+        //console.log('caseIds : ', caseIds);
+        //console.log('caseIds : ', JSON.stringify(caseIds));
+
+        updatecase({ caseId: caseIds }).then(() => {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: "Record Updated",
+                    message: "Selected cases are closed",
+                    variant: "success"
+                })
+            )
+            refreshApex(this.noStaleData);
+        }).catch(error => {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: "Record updation failed",
+                    message: error,
+                    variant: "failed"
+                })
+            )
+        })
         this.selectedCaseRecord = [];
     }
     //when case record are selected from data table
     handlerRowSelection(event) {
         this.selectedCaseRecord = event.detail.selectedRows;
-        console.log('selected data : ', JSON.stringify(this.selectedCaseRecord));
+        //console.log('selected data : ', JSON.stringify(this.selectedCaseRecord));
     }
     get totalOpenCases() {
         return this.casesProccessed.length;
@@ -57,5 +80,4 @@ export default class CaseManagement extends LightningElement {
     get isDisabled() {
         this.selectedCaseRecord.length != 0;
     }
-
 }
