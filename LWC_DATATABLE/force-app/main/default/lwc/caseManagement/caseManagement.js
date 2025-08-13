@@ -2,7 +2,7 @@ import { LightningElement, wire } from 'lwc';
 import getallcases from '@salesforce/apex/CaseController.getOpenCase';
 import updatecase from '@salesforce/apex/CaseController.updateCaseRecord';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { refreshApex } from 'lightning/apex';
+import { refreshApex } from '@salesforce/apex';
 
 const columnss = [
     { label: "Case Number", fieldName: "CaseNumber" },
@@ -19,18 +19,18 @@ export default class CaseManagement extends LightningElement {
     noStaleData;
     @wire(getallcases, {
         accId: "$accountId"
-    }) caseData({ data, error }) {
-        this.noStaleData = data;
-        if (data) {
+    }) caseData(result) {
+        this.noStaleData = result;
+        if (result.data) {
             //console.log('main data : ', data);
-            this.casesProccessed = data.map(item => ({
+            this.casesProccessed = result.data.map(item => ({
                 ...item,
                 "AccountName": item.Account?.Name || "N/A",
                 "ContactName": item.Contact?.Name || "N/A"
             }));
             //console.log('data : ', this.casesProccessed);
-        } else if (error) {
-            console.error('error : ', error);
+        } else if (result.error) {
+            console.error('error : ', result.error);
         }
     }
     //when a record is selected from a record picker
