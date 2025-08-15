@@ -72,4 +72,7 @@ public class ContactTriggerHelper {
             insert acclist;
         }
     }
+
+    //Calculate all contact under the account
+    
 }
