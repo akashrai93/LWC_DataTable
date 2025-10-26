@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title={componentTitle}>
+        <lightning-datatable
+            key-field="id"
+            data={data}
+            columns={column}
+            max-row-selection="1"
+            onrowselection={rowSelectionHandler}>
+        </lightning-datatable>
+
+        <template lwc:if={oppData}>
+            <c-top-account-opp-comp opp-data = {relatedOppData}></c-top-account-opp-comp>
+        </template>
+    </lightning-card>
+</template>
