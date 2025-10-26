@@ -11,7 +11,7 @@ export default class TopAccountComponent extends LightningElement {
     column = columns;
     oppData;
     relatedOppData = [];
-    componentTitle = 'Account Records';
+    selectedAccountName;
     @wire(fetchTopAccount)
     getAccountRecords({ error, data }) {
         if (data) {
@@ -26,6 +26,8 @@ export default class TopAccountComponent extends LightningElement {
         this.oppData = true;
         const selectedRow = event.detail.selectedRows;
         const row = selectedRow;
+        this.selectedAccountName = row[0].Name + ' opportunities';
+        console.log('Account Name : ', this.selectedAccountName);
         this.relatedOppData = row[0].Opportunities;
         console.log('selected row : ', row[0].Opportunities);
     }

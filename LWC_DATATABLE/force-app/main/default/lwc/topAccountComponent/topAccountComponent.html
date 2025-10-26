@@ -1,5 +1,5 @@
 <template>
-    <lightning-card title={componentTitle}>
+    <lightning-card title="Account Records">
         <lightning-datatable
             key-field="id"
             data={data}
@@ -9,7 +9,7 @@
         </lightning-datatable>
 
         <template lwc:if={oppData}>
-            <c-top-account-opp-comp opp-data = {relatedOppData}></c-top-account-opp-comp>
+            <c-top-account-opp-comp opp-name = {selectedAccountName} opp-data = {relatedOppData}></c-top-account-opp-comp>
         </template>
     </lightning-card>
 </template>

@@ -6,6 +6,8 @@ const columns = [
     { label: 'Lead Source', fieldName: 'LeadSource' }
 ]
 export default class TopAccountOppComp extends LightningElement {
+    @api oppName;
     @api oppData = [];
     column = columns;
+
 }
