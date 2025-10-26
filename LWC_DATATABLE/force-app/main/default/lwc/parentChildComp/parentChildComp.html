@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title={parentComponentTitle}>
+        <lightning-button
+            label={parentButtonLabel}
+            variant="Brand"
+            onclick={parentButtonClickHandler}
+        ></lightning-button>
+
+        <c-child-parent-comp onchildevent={handleChildEvent}></c-child-parent-comp>
+    </lightning-card>
+</template>

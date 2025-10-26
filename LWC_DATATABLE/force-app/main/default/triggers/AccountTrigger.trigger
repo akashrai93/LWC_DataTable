@@ -1,7 +1,7 @@
 trigger AccountTrigger on Account (before insert, after insert, before update, after update, before delete) {
 	
    //AccountTriggerDispatcher.run(Trigger.OperationType);
-    if(trigger.isBefore){
+    /*if(trigger.isBefore){
         if(trigger.isDelete){
             map<Id, Decimal> accmap = new map<Id, Decimal>();
             for(Account acc : trigger.old){
@@ -24,5 +24,5 @@ trigger AccountTrigger on Account (before insert, after insert, before update, a
                 }
             }
         }
-    }
+    }*/
 }

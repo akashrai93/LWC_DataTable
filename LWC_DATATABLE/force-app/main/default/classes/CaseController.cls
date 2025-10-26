@@ -32,4 +32,17 @@ public with sharing class CaseController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled(cacheable=true)
+    public static list<Case> getAllCases(string userId){
+        try {
+            string query = 'Select Id, CaseNumber, Status, Priority, OwnerId From Case';
+            if(userId != null){
+                query += ' Where OwnerId =: userId';
+            }
+            list<Case> caselist = Database.query(query);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }

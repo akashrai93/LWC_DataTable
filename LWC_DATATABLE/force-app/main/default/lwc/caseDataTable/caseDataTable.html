@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Case Management Datatable">
+        <div class="slds-var-p-around_small">
+            <lightning-record-picker
+                object-api-name="User"
+                label="User"
+                placeholder="Select user from..."
+                onchange={changeHandler}
+            ></lightning-record-picker>
+        </div>
+    </lightning-card>
+</template>

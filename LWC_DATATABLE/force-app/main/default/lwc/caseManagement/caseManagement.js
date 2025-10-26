@@ -37,7 +37,7 @@ export default class CaseManagement extends LightningElement {
     changeHandler(event) {
         this.accountId = event.detail.recordId;
     }
-    //when button clicks
+    //when close button clicks
     clickHandler() {
         let caseIds = this.selectedCaseRecord.map(item => item.Id);
         //console.log('caseIds : ', caseIds);

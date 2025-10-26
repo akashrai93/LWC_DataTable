@@ -1,5 +1,5 @@
 import { LightningElement, wire } from 'lwc';
-import fetchContact from '@salesforce/apex/ContactController.fetchContact';
+//import fetchContact from '@salesforce/apex/ContactController.fetchContact';
 
 const columns = [
     { label: 'Contact Name', fieldName: 'Name' },

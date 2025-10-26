@@ -1,5 +1,31 @@
 public class AccountTriggerHelper {
-	
+	/*Trigger 4 There are 2 custom fields on Account Office_Location__c(picklist) and Office_Address__c.
+        trigger should be dynamic, new value can be added, use custom metadata
+    */
+    /*
+    public static void updateOfficeAddress(list<Account> acclist, map<Id, Account> oldaccmap){
+        if(!acclist.isEmpty()){
+            map<String, Address_Location__mdt> customMetaDatamap = new map<String, Address_Location__mdt>();
+            for(Address_Location__mdt mdt : [Select Id, MasterLabel, Office_Address__c From Address_Location__mdt]){
+                customMetaDatamap.put(mdt.MasterLabel, mdt);
+            }
+            list<Account> acctobeupdate = new list<Account>();
+            for(Account acc : acclist){
+                if(oldaccmap == null || oldaccmap.isEmpty()){
+                    if(string.isNotBlank(acc.Office_Location__c) && customMetaDatamap.containsKey(acc.Office_Location__c)){
+                        acc.Office_Address__c = customMetaDatamap.get(acc.Office_Location__c).Office_Address__c;
+                    }
+                }
+                else if(!oldaccmap.isEmpty()){
+                    if(acc.Office_Location__c != null){
+                        if(oldaccmap.get(acc.Id).Office_Location__c != acc.Office_Location__c && customMetaDatamap.containsKey(acc.Office_Location__c)){
+                            acc.Office_Address__c = customMetaDatamap.get(acc.Office_Location__c).Office_Address__c;
+                        }
+                    }
+                }
+            }
+        }
+    }*/
 
     /*Trigger 3
         What is the realtionship between Account and Case object --- answer is lookUp relationship
