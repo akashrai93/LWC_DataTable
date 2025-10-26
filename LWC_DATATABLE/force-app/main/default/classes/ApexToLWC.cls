@@ -9,5 +9,6 @@ public with sharing class ApexToLWC {
         From Account Where AnnualRevenue != null Order By AnnualRevenue Desc Limit 5];
 
         return acclist;
+        
     }
 }
