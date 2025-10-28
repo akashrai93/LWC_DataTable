@@ -32,6 +32,7 @@ export default class TopAccountComponent extends LightningElement {
         }
     }
 
+
     rowSelectionHandler(event) {
         this.oppData = true;
         const selectedRow = event.detail.selectedRows;
